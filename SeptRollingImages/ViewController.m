@@ -37,6 +37,7 @@
         _rollingView.backgroundColor = [UIColor yellowColor];
         _rollingView.delegate = self;
         _rollingView.describeArray = @[@"这是第一张图片的描述", @"这是第二张图片的描述", @"这是第三张图片的描述", @"这是第四张图片的描述"];
+        _rollingView.describeBgColor = [UIColor blackColor];
         //设置每张图片的停留时间
         _rollingView.time = 3.0;
         _rollingView.pagePosition = JYPageControlPositionBottomCenter;

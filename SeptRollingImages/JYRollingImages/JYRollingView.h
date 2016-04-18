@@ -49,6 +49,8 @@ typedef enum {
  */
 @property (nonatomic, strong) NSArray *describeArray;
 
+@property (strong, nonatomic) UIColor *describeBgColor;
+
 // 初始化方法
 - (instancetype)initWithFrame:(CGRect)frame imageArray:(NSArray *)imageArray;
 + (instancetype)rollingViewWithFrame:(CGRect)frame imageArray:(NSArray *)imageArray;

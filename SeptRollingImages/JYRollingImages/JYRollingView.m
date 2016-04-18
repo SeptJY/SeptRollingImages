@@ -203,6 +203,14 @@ typedef enum{
     return _describeLabel;
 }
 
+#pragma mark -------------------------> 自定义描述标签的背景颜色
+- (void)setDescribeBgColor:(UIColor *)describeBgColor
+{
+    _describeBgColor = describeBgColor;
+    
+    self.describeLabel.backgroundColor = describeBgColor;
+}
+
 - (void)setDirection:(JYImagesRollingDirection)direction
 {
     if (_direction == direction) return;
