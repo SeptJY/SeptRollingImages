@@ -41,6 +41,14 @@ typedef enum {
  */
 @property (nonatomic, assign) NSTimeInterval time;
 
+/**
+ *  图片描述的字符串数组，应与图片顺序对应
+ *
+ *  图片描述控件默认是隐藏的
+ *  设置该属性后，会取消隐藏，显示在图片底部
+ */
+@property (nonatomic, strong) NSArray *describeArray;
+
 // 初始化方法
 - (instancetype)initWithFrame:(CGRect)frame imageArray:(NSArray *)imageArray;
 + (instancetype)rollingViewWithFrame:(CGRect)frame imageArray:(NSArray *)imageArray;

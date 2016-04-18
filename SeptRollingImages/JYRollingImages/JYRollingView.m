@@ -12,6 +12,7 @@
 #define  heightSelf self.frame.size.height
 #define strId @"JYRolling"
 #define DEFAULTTIME 5
+#define DescribeLabelAlpha 0.3
 
 #define Margin 10
 
@@ -187,6 +188,21 @@ typedef enum{
     return _otherImageView;
 }
 
+- (UILabel *)describeLabel
+{
+    if (!_describeLabel) {
+        _describeLabel = [[UILabel alloc] init];
+        _describeLabel.backgroundColor = [UIColor colorWithWhite:0 alpha:DescribeLabelAlpha];
+        _describeLabel.textColor = [UIColor whiteColor];
+        _describeLabel.textAlignment = NSTextAlignmentCenter;
+        _describeLabel.font = [UIFont systemFontOfSize:13];
+        _describeLabel.hidden = YES;
+        
+        [self addSubview:_describeLabel];
+    }
+    return _describeLabel;
+}
+
 - (void)setDirection:(JYImagesRollingDirection)direction
 {
     if (_direction == direction) return;
@@ -233,6 +249,24 @@ typedef enum{
     }
     self.currImageView.image = self.images.firstObject;
     self.pageControl.numberOfPages = self.images.count;
+}
+
+- (void)setDescribeArray:(NSArray *)describeArray
+{
+    _describeArray = describeArray;
+    
+    // 如果描述的个数与图片个数不一致，则补空字符串
+    if (describeArray && describeArray.count > 0) {
+        if (describeArray.count < self.images.count) {
+            NSMutableArray *describes = [NSMutableArray arrayWithArray:describeArray];
+            for (NSInteger i = describeArray.count; i < self.images.count; i ++) {
+                [describes addObject:@""];
+            }
+            describeArray = describes;
+        }
+        self.describeLabel.hidden = NO;
+        self.describeLabel.text = describeArray.firstObject;
+    }
 }
 
 - (void)downloadImages:(NSInteger)index
@@ -345,6 +379,7 @@ typedef enum{
     self.currIndex = self.nextIndex;
     self.pageControl.currentPage = self.currIndex;
     self.currImageView.frame = CGRectMake(widthSelf, 0, widthSelf, heightSelf);
+    self.describeLabel.text = self.describeArray[self.currIndex];
     self.currImageView.image = self.otherImageView.image;
     self.scrollView.contentOffset = CGPointMake(widthSelf, 0);
 }
@@ -445,6 +480,8 @@ typedef enum{
     //有导航控制器时，会默认在scrollview上方添加64的内边距，这里强制设置为0
     self.scrollView.contentInset = UIEdgeInsetsZero;
     self.scrollView.frame = self.bounds;
+    
+    self.describeLabel.frame = CGRectMake(0, heightSelf - 20, widthSelf, 20);
     
     // 设置分页按钮的frame
     [self setFrameToPageCtrol];

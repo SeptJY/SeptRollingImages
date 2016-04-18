@@ -24,8 +24,6 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    
-    [self.view addSubview:self.rollingView];
 }
 
 - (JYRollingView *)rollingView
@@ -35,15 +33,15 @@
         NSArray *arr2 = @[@"http://www.5068.com/u/faceimg/20140725173411.jpg", @"http://file27.mafengwo.net/M00/52/F2/wKgB6lO_PTyAKKPBACID2dURuk410.jpeg", @"http://file27.mafengwo.net/M00/B2/12/wKgB6lO0ahWAMhL8AAV1yBFJDJw20.jpeg"];
         
         _rollingView = [JYRollingView rollingViewWithimageArray:arr2];
-        _rollingView.frame = CGRectMake(0, 0, screenW, 200);
         
         _rollingView.backgroundColor = [UIColor yellowColor];
         _rollingView.delegate = self;
+        _rollingView.describeArray = @[@"这是第一张图片的描述", @"这是第二张图片的描述", @"这是第三张图片的描述", @"这是第四张图片的描述"];
         //设置每张图片的停留时间
         _rollingView.time = 3.0;
         _rollingView.pagePosition = JYPageControlPositionBottomCenter;
         
-        
+        [self.view addSubview:self.rollingView];
     }
     return _rollingView;
 }
@@ -53,11 +51,11 @@
     NSLog(@"%s", __func__);
 }
 
-//- (void)viewWillLayoutSubviews
-//{
-//    [super viewWillLayoutSubviews];
-//    
-//    self.rollingView.frame = CGRectMake(0, 0, screenW, 200);
-//}
+- (void)viewWillLayoutSubviews
+{
+    [super viewWillLayoutSubviews];
+    
+    self.rollingView.frame = CGRectMake(0, 0, screenW, 200);
+}
 
 @end
